@@ -4,7 +4,7 @@
 ## Overview
 
 
-Radiology report generation model for MIMIC-CXR dataset using large language models (NUS-BN5212 project).
+Radiology report generation model for MIMIC-CXR dataset using large language models (NUS-cBN5212 project).
 
 
 
@@ -184,10 +184,11 @@ Training outputs saved to `save/<dataset>/<version>/`:
 Testing outputs saved to `save/<dataset>/<version>/<test_mode>/`
 
 
-## Citation
+## Acknowledgments
 
-This work leverages codebases from llm-rg4, R2GenGPT and CheXbert.
+This implementation is based on and adapted from the following works:
 
+### LLM-RG4
 ```bibtex
 @misc{wang2024llmrg4flexiblefactualradiology,
       title={LLM-RG4: Flexible and Factual Radiology Report Generation across Diverse Input Contexts}, 
@@ -199,6 +200,29 @@ This work leverages codebases from llm-rg4, R2GenGPT and CheXbert.
       url={https://arxiv.org/abs/2412.12001}, 
 }
 ```
+
+### R2GenGPT
+```bibtex
+@inproceedings{wang2023r2gengpt,
+      title={R2GenGPT: Radiology Report Generation with Frozen LLMs},
+      author={Wang, Zhanyu and Tang, Mingkang and Wang, Lei and others},
+      booktitle={Medical Imaging with Deep Learning},
+      year={2023}
+}
+```
+
+### CheXbert
+```bibtex
+@inproceedings{smit2020chexbert,
+      title={CheXbert: Combining Automatic Labelers and Expert Annotations for Accurate Radiology Report Labeling Using BERT},
+      author={Smit, Akshay and Jain, Saahil and Rajpurkar, Pranav and others},
+      booktitle={Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing},
+      year={2020}
+}
+```
+
+We thank the authors for making their code publicly available.
+
 ## Notes
 
 1. Modify all paths according to your environment
