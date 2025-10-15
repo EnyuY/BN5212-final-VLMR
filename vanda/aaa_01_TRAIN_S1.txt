@@ -1,0 +1,30 @@
+#!/bin/bash 
+#PBS -j oe
+#PBS -k oed
+#PBS -N t1_1B
+#PBS -l select=1:ncpus=72:mpiprocs=1:ompthreads=72:ngpus=1:mem=480GB
+#PBS -l walltime=24:00:00
+
+#setup
+source /scratch/$USER/my_project/VLMR_dev/vanda/vanda_setup.sh
+
+# run
+singularity exec -e "$IMAGE" bash << EOF
+export JAVA_HOME=$JDK_DIR
+export PATH=\$JAVA_HOME/bin:\$PATH
+export HF_HOME="$CACHE_DIR"
+export TRANSFORMERS_CACHE="$CACHE_DIR"
+export HF_DATASETS_CACHE="$CACHE_DIR"
+export TORCH_HOME="$CACHE_DIR"
+source $ENV_DIR/bin/activate
+echo "Start: \$(date)"
+java -version
+python --version
+
+####edit this ↓↓↓
+chmod +x scripts/train_stage1.sh
+bash scripts/train_stage1.sh
+####edit this ↑↑↑
+
+echo "Done: \$(date)"
+EOF
