@@ -42,7 +42,7 @@ dataset/
 DiscBERT/
 evalcap/
 hf/
-save/s
+save/
 
 # Backup files
 *.o*
@@ -50,3 +50,6 @@ save/s
 # System
 .cache/
 .pytest_cache/
+
+vanda/
+docs/

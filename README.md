@@ -53,7 +53,7 @@ VLMR_dev/
 - Dependencies: see `requirements.txt`
 
 Installation:
-```bash
+```bashcc
 pip install -r requirements.txt
 ```
 
