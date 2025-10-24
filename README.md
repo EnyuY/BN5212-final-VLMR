@@ -66,14 +66,18 @@ Download MIMIC-CXR-JPG 2.0.0 from PhysioNet:
 https://physionet.org/content/mimic-cxr-jpg/2.0.0/
 ```
 
-### 2. Text Annotations
+### 2. Text Annotations and Checkpoints
 
-Download MIMIC-RG4 annotation files:
+Download annotation files and pre-trained checkpoints from Hugging Face:
 ```
-https://drive.google.com/file/d/1X8V1H6oxxGfutGsLFofXDzvOnoq7BEyf/view
+https://huggingface.co/datasets/enyulab/BN5212-VLMR-bigdata
 ```
 
-Extract to `dataset/annotation/`
+Files included:
+- `dataset/annotation/`: JSON annotation files (RAG-augmented variants)
+- `save/mimic_cxr/`: Pre-trained model checkpoints
+
+Extract annotation files to `dataset/annotation/` and checkpoints to `save/`
 
 ### 3. Pre-trained Models
 
