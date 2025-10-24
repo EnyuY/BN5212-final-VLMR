@@ -1,6 +1,6 @@
 #!/bin/bash
 dataset="mimic_cxr"
-base_dir="/scratch/e1505296/my_project/LLM-RAG/dataset/mimic-cxr-jpg/2.0.0/files/"
+base_dir="/scratch/$USER/my_project/LLM-RAG/dataset/mimic-cxr-jpg/2.0.0/files/"
 sn_annotation="./dataset/annotation/final_single_view_no_long_add1score_sentence_level.json"
 sw_annotation="./dataset/annotation/final_single_view_with_long_add1score_sentence_level.json"
 mn_annotation="./dataset/annotation/final_multi_view_no_long_add1score_sentence_level.json"

@@ -4,8 +4,7 @@
 ## Overview
 
 
-Radiology report generation model for MIMIC-CXR dataset using large language models (NUS-cBN5212 project).
-
+Radiology report generation model for MIMIC-CXR dataset using large language models (NUS-BN5212 project).
 
 
 ## Directory Structure
@@ -27,6 +26,7 @@ VLMR_dev/
 │   ├── LLM_RG4.py        # Main model (7B version)
 │   ├── LLM_RG4_1B_2048.py  # 1B version (2048 tokens)
 │   ├── LLM_RG4_1B_4096.py  # 1B version (4096 tokens)
+│   ├── LLM_RAG.py        # RAG-augmented model
 │   ├── chexbert.py       # CheXbert evaluation model
 │   └── metrics.py        # Evaluation metrics
 ├── dataset/              # Data loading
@@ -53,7 +53,7 @@ VLMR_dev/
 - Dependencies: see `requirements.txt`
 
 Installation:
-```bashcc
+```bash
 pip install -r requirements.txt
 ```
 
@@ -168,12 +168,22 @@ Extract to `./evalcap`
 
 ## Model Architecture
 
-- **Visual Encoder**: rad-dino (frozen)
-- **Text Encoder**: CXR-BERT (frozen)
-- **Language Model**: Vicuna-7B-v1.5 / Tiny-Vicuna-1B
-  - Stage 1: Frozen LLM, train mapping layer
-  - Stage 2: LoRA fine-tune LLM (rank=32, alpha=64)
-- **Loss Function**: Token-level weighted cross-entropy (sentence_ratio=0.75)
+- Visual encoder: rad-dino (frozen)
+- Text encoder: BiomedVLP-CXR-BERT (frozen)
+- Alignment and prompt projection (APPA): learnable queries, multi-head cross-attention, linear projections to d_LLM, layer normalization
+- Lateral/text branches and IIT fusion: lateral image branch, text branch, and Image-Image-Text fusion head
+- Language model: Vicuna-7B-v1.5 (7B) or Tiny-Vicuna-1B (1B)
+  - Stage 1: freeze LLM; train alignment and fusion modules
+  - Stage 2: LoRA on LLM (rank=32, alpha=64); train lateral/text branches and IIT fusion
+- Retrieval-augmented generation (RAG): encode external text; cross-attend with learnable queries; project to d_LLM; insert via a special prompt token; auxiliary loss on RAG token prediction
+- SAIA: two-pass generation; the first-pass draft is used as RAG input in the second pass
+- Loss: token-level cross-entropy averaged over tokens plus sentence-weighted term (λ=0.75) and RAG auxiliary term (γ=0.1)
+
+### Reported variants
+- LLM_RG4 (7B)
+- LLM_RG4_1B_2048 (1B, 2048 embedding)
+- LLM_RG4_1B_4096 (1B, 4096 bottleneck)
+- LLM_RAG (RAG augmentation; used with SAIA in two-pass setting)
 
 ## Output
 
